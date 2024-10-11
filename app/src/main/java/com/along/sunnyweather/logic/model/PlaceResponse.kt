@@ -1,6 +1,5 @@
 package com.along.sunnyweather.logic.model
 
-import android.location.Location
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -19,4 +18,9 @@ data class Place(
     // 城市经纬度
     val location: Location,
     @SerializedName("formatted_address") val address: String
+)
+
+data class Location(
+    val lat: String,
+    val lng: String
 )

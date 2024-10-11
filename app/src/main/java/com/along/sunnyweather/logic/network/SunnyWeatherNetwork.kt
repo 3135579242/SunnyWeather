@@ -19,6 +19,17 @@ object SunnyWeatherNetwork {
     // 执行网络请求得到数据[此时协程会被堵塞]
     suspend fun searchPlaces(query: String) = placeService.searchPlaces(query).await()
 
+    // 创建API实例
+    private val weatherService = ServiceCreator.create(WeatherService::class.java)
+
+    // 当天天气
+    suspend fun getRealtimeWeather(lng: String, lat: String) =
+        weatherService.getRealtimeWeather(lng, lat).await()
+
+    // 未来天气
+    suspend fun getDailyWeather(lng: String, lat: String) =
+        weatherService.getDailyWeather(lng, lat).await()
+
     // Call的扩展函数
     private suspend fun <T> Call<T>.await(): T {
         return suspendCoroutine { continuation ->
@@ -40,5 +51,4 @@ object SunnyWeatherNetwork {
             })
         }
     }
-
 }
